@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+			margin:0;
+			padding:0;
+			box-sizing: border-box;	
+            
+			}
+        #konter{
+            position: relative; 
+            width: 90%; 
+            max-width: 500px; 
+            margin: 20px auto; 
+            border: 1px solid red;
+            padding: 20px; 
+        }
+        #tyt{
+            font-family:Arial, Helvetica, sans-serif;
+            font-size: 2em; 
+            text-align: center; 
+            margin-bottom: 20px; 
+        }
+        #lista{
+            font-family:Arial, Helvetica, sans-serif;
+            padding: 0; 
+            list-style: none;
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+        }
+        li{
+            border: 1px solid black;
+            padding: 10px;
+            margin-bottom: 10px;
+            text-decoration: none;
+            flex: 1 0 250px;
+        }
+
+      
+        @media (max-width: 700px) {
+            #konter {
+                width: 100%; 
+                max-width: none;
+                border-color:blue;}
+            #tyt {
+                font-size: 1.5em; 
+            }
+            li {
+                font-size: 14px;
+            }
+        }
+        #li23{
+            font-size:60px;
+        }
+        .user-card {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 10px;
+            border-radius: 35px;
+            box-shadow:tomato ,5x;
+            background-color: #f9f9f9;
+            box-shadow:5px, 5xp ,black;
+        }
+
+        .user-card h2 {
+             margin-top: 0;
+        }
+        .obraz{
+            border-radius:10px;
+            float:right;
+            height:100px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="tyt"></div>
+    <ol id="lista">
+
+</ol>
+<div id="li23">liczba imion:<span ID="wynik"></span></div>
+</div> 
+<script>
+const listaImion = document.getElementById('lista');
+const liczbaImion = document.getElementById('wynik');
+let obrazIndex = 1; 
+
+fetch('https://jsonplaceholder.typicode.com/users')
+  .then(response => response.json())
+  .then(users => {
+    users.forEach(user => {
+        const karta = `
+        <li class="user-card">
+            <img class="obraz" src="https://i.pravatar.cc/150?img=${obrazIndex}">
+          <h2>${user.name}</h2>
+          <p>Username: ${user.username}</p>
+          <p>Email: ${user.email}</p>
+          <p>Phone: ${user.phone}</p>
+          <p>Website: ${user.website}</p>
+          <p>Company: ${user.company.name}</p>
+        </li>
+      `;
+      listaImion.innerHTML += karta;
+      obrazIndex++; 
+    });
+    liczbaImion.textContent = users.length;
+  });
+     
+</script>
+</body>
+</html>
